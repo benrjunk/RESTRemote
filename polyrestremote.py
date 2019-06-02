@@ -10,9 +10,9 @@ import yaml
 @click.option('-sc', '--serverConfig', help='Server config file', type=click.File('r'), required=True)
 @click.option('-c', '--config', help='Config file', type=click.File('r'), required=False)
 def PolyRemote(serverconfig, config):
-    configData = yaml.load(serverconfig)
+    configData = yaml.load(serverconfig, Loader=yaml.FullLoader)
     if config:
-        configData.update(yaml.load(config))
+        configData.update(yaml.load(config, Loader=yaml.FullLoader))
 
     try:
         polyglot = polyinterface.Interface(configData['controller']['name'])
